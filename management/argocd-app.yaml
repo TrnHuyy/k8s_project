@@ -1,0 +1,52 @@
+namespace: argocd
+repoURL: 
+project: default
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
+apps: 
+  - name: dev-utilities
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    source:
+      targetRevision: main
+      path: charts/argocd-apps
+      valueFiles:
+        - ../../utilities/dev/argocd-apps/values.yaml
+
+  - name: dev-applications
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    source:
+      targetRevision: main
+      path: charts/argocd-apps
+      valueFiles:
+        - ../../applications/dev/argocd-apps/values.yaml  
+
+--- 
+
+  - name: test-utilities
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    source:
+      targetRevision: main
+      path: charts/argocd-apps
+      valueFiles:
+        - ../../utilities/test/argocd-apps/values.yaml  
+
+
+  - name: test-applications
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    source:
+      targetRevision: main
+      path: charts/argocd-apps
+      valueFiles:
+        - ../../applications/test/argocd-apps/values.yaml  

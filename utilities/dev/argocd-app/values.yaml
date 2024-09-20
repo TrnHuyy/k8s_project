@@ -1,0 +1,29 @@
+namespace: argocd
+repoURL: 
+project: default
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
+apps: 
+  - name: kafka
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    source:
+      targetRevision: main
+      path: charts/kafka
+      valueFiles:
+        - ../../utilities/dev/kafka/values.yaml  
+
+  - name: redis
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    source:
+      targetRevision: main
+      path: charts/redis
+      valueFiles:
+        - ../../utilities/dev/redis/values.yaml  

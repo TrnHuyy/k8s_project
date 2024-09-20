@@ -1,0 +1,44 @@
+broker:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: 500m
+      memory: 2Gi
+    limits:
+      cpu: 2000m
+      memory: 4Gi
+  persistence: 
+    storageClass: azure-disk 
+    size: 50Gi
+
+listeners:
+  client:
+    containerPort: 9092
+    protocol: SASL_PLAINTEXT
+    name: CLIENT
+
+sasl:
+  interbroker:
+    user: inter_broker_user
+    password: "1234"
+    clientId: inter_broker_client
+    clientSecret: "1234"
+  controller:
+    user: controller_user
+    password: "4321"
+    clientId: controller_broker_client
+    clientSecret: "4321"
+  client:
+    users:
+      - user1
+    passwords: "9876"
+  zookeeper:
+    user: "zoo_keeper_user"
+    password: "6789"
+
+zookeeper:
+  enabled: true
+  replicaCount: 3
+
+kraft:
+  enabled: false

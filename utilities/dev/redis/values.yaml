@@ -1,0 +1,10 @@
+master:
+  persistence:
+    sizeLimit: 8Gi
+
+sentinel:
+  enable: true
+  persistence:
+    enable: true
+    size: 8Gi 
+
